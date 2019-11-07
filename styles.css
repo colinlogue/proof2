@@ -1,0 +1,42 @@
+
+
+
+.node {
+	display: flex;
+	align-items: end;
+	margin: 0.2em;
+}
+
+.node > .in-and-out {
+	margin-right: 0.5em;
+}
+
+.node > .label {
+	margin-bottom: 0.8em;
+}
+
+.node > .in-and-out > .inputs {
+	display: flex;
+	justify-content: space-around;
+	align-items: end;
+	padding: 0.2em;
+}
+
+.node > .in-and-out > .inputs > .node {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+.node > .in-and-out > .output {
+	border-top: 1px solid black;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-top: 0.2em;
+}
+
+.node.empty {
+	width: 1.5em;
+	height: 1.5em;
+	border: 1px dashed green;
+}

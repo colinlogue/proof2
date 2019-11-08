@@ -9,10 +9,15 @@ function getChildrenByClass(elem, class_name) {
 function getChildByClass(elem, class_name) {
 	// returns the first direct child that matches the
 	// given class name
-	return Array.from(elem.childNodes).find( function(child) {
-		return (child.classList
-			&& child.classList.contains(class_name));
-	});
+	try {
+		return Array.from(elem.childNodes).find( function(child) {
+			return (child.classList
+				&& child.classList.contains(class_name));
+		});
+	}
+	catch(error) {
+		return null;
+	}
 }
 
 function createDivWithClasses(...classes) {

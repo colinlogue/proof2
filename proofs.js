@@ -15,27 +15,38 @@ class ProofRule {
 		return this.in_forms.length;
 	}
 	validate(inputs) {
-		this.set_variables();
+		this.setVariables();
 	}
-	setVariables(inputs) {
-		let variables = {};
+	setVariables(inputs, variables) {
 		try {
 			for (let i = 0; i < this.num_inputs; ++i) {
-				inputs[i].setVars(variables);
+				this.in_forms[i].setVars(inputs[i], variables);
 			}
 		}
 		catch(error) {
-			variables = {};
+			console.log(error);
 		}
-		this.variables = variables;
 	}
-	get output() {
-		return this.out_form.replace(this.variables);
+	output(inputs) {
+		let variables = {};
+		this.setVariables(inputs, variables);
+		return this.out_form.replace(variables);
+	}
+}
+
+class Premise {
+	constructor(expr) {
+		this.expr = expr;
+	}
+	output() {
+		return this.expr;
 	}
 }
 
 let a = Var('a');
 let b = Var('b');
 
-
+Empty = new ProofRule([], [], '');
 AndIntro = new ProofRule([a, b], And(a,b), '∧I');
+AndElimL = new ProofRule([And(a,b)], a, '∧EL');
+AndElimR = new ProofRule([And(a,b)], b, '∧ER');

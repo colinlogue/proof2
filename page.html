@@ -10,9 +10,11 @@
     	<title>Visual proof checker</title>
     	<script>
     		document.addEventListener('DOMContentLoaded', function() {
-    			createProofNode(AndIntro);
+    			let node = createProofNode(AndIntro);
+    			document.getElementById('display').appendChild(node);
     		});
     	</script>
+    	<script src="test.js"></script>
 	</head>
 	<body>
 		<div id="display">

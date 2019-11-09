@@ -8,16 +8,22 @@
 		<script src="proofs.js"></script>
 		<script src="tree.js"></script>
     	<title>Visual proof checker</title>
-    	<script>
-    		document.addEventListener('DOMContentLoaded', function() {
-    			let node = createProofNode(AndIntro);
-    			document.getElementById('display').appendChild(node);
-    		});
-    	</script>
     	<script src="test.js"></script>
+    	<script defer src="elements.js"></script>
+    	<script src="parser.js"></script>
 	</head>
 	<body>
-		<div id="display">
-		</div>
+		<div id="proofer">
+			<div id="display">
+				<proof-node rule="and-intro">
+					<premise-node expr="A"></premise-node>
+					<proof-inference rule="and-elim-left">
+						<proof-premise expr="B"></premise-node>
+						<premise-node expr="C"></premise-node>
+					</proof-node>
+				</proof-node>
+			</div>
+			<div id="controls">
+			</div>
 	</body>
 </html>

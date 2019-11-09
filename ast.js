@@ -110,6 +110,17 @@ class VariableNode extends Expression {
 }
 VariableNode.node_type = 'VAR';
 
+class PredicateNode extends Expression {
+	constructor(name, terms) {
+		super();
+		this.name = name;
+		this.terms = terms;
+	}
+	toString() {
+		return `${this.name}(${this.terms})`;
+	}
+}
+
 class OperationNode extends Expression {
 	constructor(lhs, rhs) {
 		super([lhs, rhs]);
@@ -137,15 +148,74 @@ class AndNode extends OperationNode {
 AndNode.symbol = '∧';
 AndNode.node_type = 'AND';
 
+class OrNode extends OperationNode {
+	evaluate(context) {
+		return this.lhs.evaluate(context) ||
+			this.rhs.evaluate(context);
+	}
+}
+OrNode.symbol = '∨';
+OrNode.node_type = 'OR';
+
+class ArrowNode extends OperationNode {
+	evaluate(context) {
+		return !(this.lhs.evaluate(context)) ||
+			this.rhs.evaluate(context);
+	}
+}
+ArrowNode.symbol = '→';
+ArrowNode.node_type = 'ARROW';
+
+class QuantifierNode extends Expression {
+	constructor(expr) {
+		super([expr]);
+	}
+	get expr() {
+		return this.children[0];
+	}
+	toString() {
+		return `(${this.symbol}. ${this.expr}`;
+	}
+}
+
+class ForAllNode extends QuantifierNode {
+}
+ForAllNode.symbol = '∀';
+ForAllNode.node_type = 'FORALL';
+
+class ExistsNode extends QuantifierNode {
+}
+ExistsNode.symbol = '∃';
+ExistsNode.node_type = 'EXISTS';
+
 function Var(name) {
 	return new VariableNode(name);
 }
 
+function Pred(name, vs=[]) {
+	return new PredicateNode(name, vs);
+}
 
 function And(lhs, rhs) {
 	return new AndNode(lhs, rhs);
 }
 
+function Or(lhs, rhs) {
+	return new OrNode(lhs, rhs);
+}
+
+function Arrow(lhs, rhs) {
+	return new ArrowNode(lhs, rhs);
+}
+
 function Not(expr) {
 	return new NotNode(expr);
+}
+
+function ForAll(expr) {
+	return new ForAllNode(expr);
+}
+
+function Exists(expr) {
+	return new ExistsNode(expr);
 }

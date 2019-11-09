@@ -25,3 +25,12 @@ function createDivWithClasses(...classes) {
 	elem.classList.add(...classes);
 	return elem;
 }
+
+function arrayToCommaList(arr) {
+	if (arr.length == 0) { return ''; }
+	let str = arr.shift().toString();
+	while (arr.length > 0) {
+		str += ', ' + arr.shift().toString();
+	}
+	return str;
+}

@@ -34,3 +34,9 @@ function arrayToCommaList(arr) {
 	}
 	return str;
 }
+
+function removeAllChildren(elem) {
+	while (elem.firstChild) {
+		elem.removeChild(elem.firstChild);
+	}
+}

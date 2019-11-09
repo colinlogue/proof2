@@ -88,3 +88,5 @@ function createPremiseNode(expr) {
 	setupProofNode(node);
 	return node;
 }
+
+

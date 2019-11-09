@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="styles.css">
-		<script src="utils.js"></script>
-		<script src="ast.js"></script>
-		<script src="proofs.js"></script>
-		<script src="tree.js"></script>
-    	<title>Visual proof checker</title>
-    	<script src="test.js"></script>
-    	<script defer src="elements.js"></script>
-    	<script src="parser.js"></script>
-	</head>
-	<body>
-		<div id="proofer">
-			<div id="display">
-				<proof-node rule="and-intro">
-					<premise-node expr="A"></premise-node>
-					<proof-inference rule="and-elim-left">
-						<proof-premise expr="B"></premise-node>
-						<premise-node expr="C"></premise-node>
-					</proof-node>
-				</proof-node>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles.css">
+	<script src="utils.js"></script>
+	<script src="ast.js"></script>
+	<script src="proofs.js"></script>
+	<script src="tree.js"></script>
+	<title>Visual proof checker</title>
+	<script src="test.js"></script>
+	<script defer src="elements.js"></script>
+	<script src="parser.js"></script>
+</head>
+<body>
+	<div id="display" hidden>
+		<proof-inference rule="and-intro">
+			<proof-premise expr="G" slot="left"></proof-premise>
+			<proof-inference rule="and-intro" slot="right">
+				<proof-assumption expr="J" slot="right"></proof-assumption>
+			</proof-inference>
+		</proof-inference>
+	</div>
+
+	<div id="controls">
+	</div>
+
+	<!-- templates -->
+	<template id="inference-template">
+		<style> @import "styles.css"; </style>
+		<div class="node inference">
+			<div class="inputs">
+				<slot name="left" class="hidden">
+					<proof-empty></proof-empty>
+				</slot>
+				<slot name="mid" class="hidden">
+					<proof-empty></proof-empty>
+				</slot>
+				<slot name="right" class="hidden">
+					<proof-empty></proof-empty>
+				</slot>
 			</div>
-			<div id="controls">
+			<div class="mid">
+				<div class="label">
+				</div>
 			</div>
-	</body>
-</html>
+			<div class="output">
+			</div>
+		</div>
+	</template>
+	<template id="premise-template">
+		<style> @import "styles.css"; </style>
+		<div class="node premise">
+		</div>
+	</template>
+	<template id="assumption-template">
+		<style> @import "styles.css"; </style>
+		<div class="node assumption">
+		</div>
+	</template>
+	<template id="empty-template">
+		<style> @import "styles.css"; </style>
+		<div class="node empty">
+		</div>
+	</template>
+	<template id="rule-button-template">
+		<div class="rule-button">
+		</div>
+	</template>
+
+</body>
